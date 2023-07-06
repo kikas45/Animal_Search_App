@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/mainBase"
+    tools:context=".ui.search.SearchHistoryFragment">
+
+
+<androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/pre_item_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:paddingBottom="5dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_scrollFlags="scroll|enterAlways|snapMargins">
+
+        <ImageView
+            android:id="@+id/back_arrow_pre"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:background="?selectableItemBackground"
+            android:clickable="true"
+            android:focusable="true"
+            android:padding="8dp"
+            android:src="@drawable/ic_baseline_keyboard_backspace_24"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
+        <ImageView
+            android:id="@+id/moreImage"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:layout_marginEnd="8dp"
+            android:clickable="true"
+            android:focusable="true"
+            android:foreground="?android:selectableItemBackground"
+            android:padding="8dp"
+            android:src="@drawable/ic_more"
+            app:layout_constraintBottom_toBottomOf="@+id/editText"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/editText"
+            tools:ignore="UnusedAttribute" />
+
+        <EditText
+            android:id="@+id/editText"
+            android:layout_width="0dp"
+            android:layout_height="30dp"
+            android:layout_marginStart="60dp"
+            android:layout_marginEnd="8dp"
+            android:background="@drawable/round_search_corners_light"
+            android:ellipsize="end"
+            android:hint="Seach Academia"
+            android:imeOptions="actionSearch"
+            android:inputType="text"
+            android:maxHeight="30dp"
+            android:maxLines="1"
+            android:paddingStart="26dp"
+            android:paddingTop="6dp"
+            android:paddingEnd="26dp"
+            android:paddingBottom="6dp"
+            android:textSize="14sp"
+            app:endIconDrawable="@drawable/ic_close"
+            app:endIconMode="clear_text"
+            app:layout_constraintBottom_toBottomOf="@+id/back_arrow_pre"
+            app:layout_constraintEnd_toStartOf="@+id/moreImage"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/back_arrow_pre" />
+
+        <TextView
+            android:id="@+id/textHistory"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:padding="3dp"
+            android:text="History"
+            android:textSize="14sp"
+            android:visibility="visible"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/back_arrow_pre" />
+
+        <ImageView
+            android:id="@+id/imageDelete"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:layout_marginEnd="16dp"
+            android:padding="8dp"
+            android:visibility="visible"
+            app:layout_constraintBottom_toBottomOf="@+id/textHistory"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/textHistory"
+            app:srcCompat="@drawable/ic_delete_downloads" />
+
+        <ImageView
+            android:id="@+id/editClear"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_marginEnd="6dp"
+            android:padding="5dp"
+            android:visibility="visible"
+            app:layout_constraintBottom_toBottomOf="@+id/editText"
+            app:layout_constraintEnd_toEndOf="@+id/editText"
+            app:layout_constraintTop_toTopOf="@+id/editText"
+            app:srcCompat="@drawable/ic_close_for_bs" />
+
+        <ImageView
+            android:id="@+id/editSearch"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_marginStart="3dp"
+            android:layout_marginTop="3dp"
+            android:padding="6dp"
+            android:visibility="visible"
+            app:layout_constraintBottom_toBottomOf="@+id/editText"
+            app:layout_constraintStart_toStartOf="@+id/editText"
+            app:layout_constraintTop_toTopOf="@+id/editText"
+            app:srcCompat="@drawable/ic_search_outline" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycler_search_history"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:reverseLayout="true"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/pre_item_toolbar" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
