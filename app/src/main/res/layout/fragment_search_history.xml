@@ -5,59 +5,27 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:id="@+id/mainBase"
-    tools:context=".ui.search.SearchHistoryFragment">
+    tools:context=".ui.search.searchDataHistory.SearchHistoryFragment">
 
-
-<androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/pre_item_toolbar"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintLayout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:paddingBottom="5dp"
+        android:layout_height="50dp"
+        android:background="@color/black"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_scrollFlags="scroll|enterAlways|snapMargins">
-
-        <ImageView
-            android:id="@+id/back_arrow_pre"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
-            android:background="?selectableItemBackground"
-            android:clickable="true"
-            android:focusable="true"
-            android:padding="8dp"
-            android:src="@drawable/ic_baseline_keyboard_backspace_24"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-
-        <ImageView
-            android:id="@+id/moreImage"
-            android:layout_width="35dp"
-            android:layout_height="35dp"
-            android:layout_marginEnd="8dp"
-            android:clickable="true"
-            android:focusable="true"
-            android:foreground="?android:selectableItemBackground"
-            android:padding="8dp"
-            android:src="@drawable/ic_more"
-            app:layout_constraintBottom_toBottomOf="@+id/editText"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/editText"
-            tools:ignore="UnusedAttribute" />
+        app:layout_constraintTop_toTopOf="parent">
 
         <EditText
             android:id="@+id/editText"
             android:layout_width="0dp"
-            android:layout_height="30dp"
-            android:layout_marginStart="60dp"
-            android:layout_marginEnd="8dp"
-            android:background="@drawable/round_search_corners_light"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="16dp"
             android:ellipsize="end"
-            android:hint="Seach Academia"
+            android:hint="Search data"
+            android:background="@android:color/transparent"
+            android:textColorHint="#595353"
+            android:textColor="@color/white"
             android:imeOptions="actionSearch"
             android:inputType="text"
             android:maxHeight="30dp"
@@ -66,76 +34,65 @@
             android:paddingTop="6dp"
             android:paddingEnd="26dp"
             android:paddingBottom="6dp"
-            android:textSize="14sp"
-            app:endIconDrawable="@drawable/ic_close"
+            android:textSize="16sp"
             app:endIconMode="clear_text"
-            app:layout_constraintBottom_toBottomOf="@+id/back_arrow_pre"
-            app:layout_constraintEnd_toStartOf="@+id/moreImage"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/back_arrow_pre" />
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/imagSearch"
+            app:layout_constraintStart_toEndOf="@+id/backArrowPre"
+            app:layout_constraintTop_toTopOf="parent" />
 
-        <TextView
-            android:id="@+id/textHistory"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
-            android:padding="3dp"
-            android:text="History"
-            android:textSize="14sp"
-            android:visibility="visible"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/back_arrow_pre" />
+
 
         <ImageView
-            android:id="@+id/imageDelete"
+            android:id="@+id/imagSearch"
+            android:layout_width="30dp"
+            android:layout_height="25dp"
+            android:layout_marginEnd="8dp"
+            android:padding="5dp"
+            android:src="@drawable/ic_more"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:tint="@color/white" />
+
+        <ImageView
+            android:id="@+id/backArrowPre"
             android:layout_width="35dp"
             android:layout_height="35dp"
-            android:layout_marginEnd="16dp"
-            android:padding="8dp"
-            android:visibility="visible"
-            app:layout_constraintBottom_toBottomOf="@+id/textHistory"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/textHistory"
-            app:srcCompat="@drawable/ic_delete_downloads" />
+            android:layout_marginStart="8dp"
+            android:padding="6dp"
+            android:src="@drawable/ic_baseline_keyboard_backspace_24"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:tint="@color/white" />
 
         <ImageView
             android:id="@+id/editClear"
-            android:layout_width="25dp"
-            android:layout_height="25dp"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
             android:layout_marginEnd="6dp"
             android:padding="5dp"
-            android:visibility="visible"
+            android:src="@drawable/ic_close_for_bs"
+            android:visibility="invisible"
             app:layout_constraintBottom_toBottomOf="@+id/editText"
             app:layout_constraintEnd_toEndOf="@+id/editText"
             app:layout_constraintTop_toTopOf="@+id/editText"
-            app:srcCompat="@drawable/ic_close_for_bs" />
-
-        <ImageView
-            android:id="@+id/editSearch"
-            android:layout_width="25dp"
-            android:layout_height="25dp"
-            android:layout_marginStart="3dp"
-            android:layout_marginTop="3dp"
-            android:padding="6dp"
-            android:visibility="visible"
-            app:layout_constraintBottom_toBottomOf="@+id/editText"
-            app:layout_constraintStart_toStartOf="@+id/editText"
-            app:layout_constraintTop_toTopOf="@+id/editText"
-            app:srcCompat="@drawable/ic_search_outline" />
+            app:tint="@color/white" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recycler_search_history"
+        android:id="@+id/recyclerview"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        app:reverseLayout="true"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/pre_item_toolbar" />
+        app:layout_constraintTop_toBottomOf="@+id/constraintLayout"
+        app:reverseLayout="true"
+        tools:listitem="@layout/custom_row" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

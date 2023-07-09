@@ -11,21 +11,19 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
 @HiltViewModel
-class GalleryViewModel @Inject constructor(
+class HistoryViewModel @Inject constructor(
     private val repository: UnsplashRepository,
-    savedStateHandle: SavedStateHandle,
 ) : ViewModel() {
 
-  private val currentQuery = savedStateHandle.getLiveData(CURRENT_QUERY, DEFAULT_QUERY)
+    private val currentQuery = MutableLiveData<String>()
 
     val photos = currentQuery.switchMap { queryString ->
         repository.getSearchResults(queryString).cachedIn(viewModelScope)
     }
 
-
-    companion object {
-         private const val CURRENT_QUERY = "current_query"  // we use this one for process death
-        private const val DEFAULT_QUERY = "cats"
+    fun searchPhotos_History(query: String) {
+        currentQuery.value = query
     }
+
 
 }

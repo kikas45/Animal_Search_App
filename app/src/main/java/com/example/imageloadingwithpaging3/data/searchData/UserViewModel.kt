@@ -1,4 +1,4 @@
-package com.example.imageloadingwithpaging3.data.searchData.viewmodel
+package com.example.imageloadingwithpaging3.data.searchData
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel

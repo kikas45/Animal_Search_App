@@ -1,53 +1,67 @@
-package com.example.imageloadingwithpaging3.ui.gallery
+package com.example.imageloadingwithpaging3.ui.search.onItemSearched
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.View
+import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.core.view.isVisible
-
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.findNavController
 import androidx.paging.LoadState
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.imageloadingwithpaging3.R
 import com.example.imageloadingwithpaging3.data.galaryData.UnsplashPhoto
-import com.example.imageloadingwithpaging3.databinding.FragmentGalleryBinding
+import com.example.imageloadingwithpaging3.databinding.FragmentSearchBinding
+import com.example.imageloadingwithpaging3.ui.gallery.HistoryViewModel
+import com.example.imageloadingwithpaging3.ui.gallery.ProductsAdapter
+import com.example.imageloadingwithpaging3.ui.gallery.UnsplashPhotoLoadStateAdapter
 import dagger.hilt.android.AndroidEntryPoint
 
-
 @AndroidEntryPoint
-class GalleryFragment : Fragment(R.layout.fragment_gallery), ProductsAdapter.OnItemClickListener {
+class SearchFragment : Fragment(R.layout.fragment_search), ProductsAdapter.OnItemClickListener {
 
-
-    private val viewModel by viewModels<GalleryViewModel>()
-
-    private var _binding: FragmentGalleryBinding? = null
+    private var _binding: FragmentSearchBinding? = null
     private val binding get() = _binding!!
 
+
+    private val viewModel by viewModels<HistoryViewModel>()
+
+    @SuppressLint("CommitPrefEdits")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        _binding = FragmentGalleryBinding.bind(view)
-
+        _binding = FragmentSearchBinding.bind(view)
 
         val adapter = ProductsAdapter(this)
 
-        val sharedDass = view.context.applicationContext.getSharedPreferences(
-            "PASS_DATA_TRANS_FRAGMENT",
-            Context.MODE_PRIVATE
-        )
+        val sharedDass = view.context.applicationContext.getSharedPreferences("PASS_DATA_TRANS_FRAGMENT", Context.MODE_PRIVATE)
         val editor = sharedDass.edit()
+        val urlData = sharedDass?.getString("search", "")
+        val urls = arguments?.getString("search").toString()
+
+        if (urlData  == "SavedData"){
+            binding.recyclerView.scrollToPosition(0)
+            viewModel.searchPhotos_History(urls)
+            binding.titleText.text = urls
+        }else{
+            binding.titleText.text = urls
+        }
 
 
         binding.apply {
 
             imagSearch.setOnClickListener {
-
                 view.findNavController()
-                    .navigate(R.id.action_galleryFragment_to_searchHistoryFragment)
+                    .navigate(R.id.action_searchFragment_to_searchHistoryFragment)
                 editor.clear()
+                editor.apply()
+
+            }
+
+            backArrowPre.setOnClickListener {
+                view.findNavController().popBackStack(R.id.galleryFragment, false)
             }
 
 
@@ -65,6 +79,8 @@ class GalleryFragment : Fragment(R.layout.fragment_gallery), ProductsAdapter.OnI
             buttonRetry.setOnClickListener { adapter.retry() }
 
         }
+
+
 
         viewModel.photos.observe(viewLifecycleOwner) {
             adapter.submitData(viewLifecycleOwner.lifecycle, it)
@@ -101,7 +117,7 @@ class GalleryFragment : Fragment(R.layout.fragment_gallery), ProductsAdapter.OnI
         bundle.putString("user", photo.user.toString())
         bundle.putString("description", photo.description.toString())
         bundle.putString("id", photo.id.toString())
-        view?.findNavController()?.navigate(R.id.action_galleryFragment_to_detailsFragment, bundle)
+         view?.findNavController()?.navigate(R.id.action_searchFragment_to_detailsFragment, bundle)
     }
 
 
@@ -113,15 +129,14 @@ class GalleryFragment : Fragment(R.layout.fragment_gallery), ProductsAdapter.OnI
 
     override fun onResume() {
         super.onResume()
+
         val callback: OnBackPressedCallback = object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {
-              activity?.finish()
+                view?.findNavController()?.popBackStack(R.id.galleryFragment, false)
             }
         }
         requireActivity().onBackPressedDispatcher.addCallback(requireActivity(), callback)
+
     }
+
 }
-
-
-
-

@@ -8,9 +8,6 @@ import kotlinx.android.parcel.Parcelize
 @Parcelize
 @Entity(tableName = "user_table")
 data class User(
-    @PrimaryKey(autoGenerate = true)
-    val id: Int,
+    @PrimaryKey
     val firstName: String,
-    val lastName: String,
-    val age: Int
 ): Parcelable
