@@ -11,7 +11,7 @@ import androidx.room.Update
 @Dao
 interface UserDao {
 
-    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun addUser(user: User)
 
     @Update
@@ -23,7 +23,7 @@ interface UserDao {
     @Query("DELETE FROM user_table")
     suspend fun deleteAllUsers()
 
-    @Query("SELECT * FROM user_table ORDER BY firstName ASC")
+    @Query("SELECT * FROM user_table  ORDER BY firstName ASC LIMIT 30")
     fun readAllData(): LiveData<List<User>>
 
 }

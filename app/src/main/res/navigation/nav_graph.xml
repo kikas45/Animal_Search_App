@@ -16,6 +16,9 @@
         <action
             android:id="@+id/action_galleryFragment_to_detailsFragment"
             app:destination="@id/detailsFragment" />
+        <action
+            android:id="@+id/action_galleryFragment_to_savedFragment"
+            app:destination="@id/savedFragment" />
     </fragment>
     <fragment
         android:id="@+id/searchHistoryFragment"
@@ -48,5 +51,14 @@
         android:id="@+id/detailsFragment"
         android:name="com.example.imageloadingwithpaging3.ui.details.DetailsFragment"
         android:label="fragment_details"
-        tools:layout="@layout/fragment_details" />
+        tools:layout="@layout/fragment_details" >
+        <argument
+            android:name="Powell"
+            app:argType="com.example.imageloadingwithpaging3.data.galaryData.UnsplashPhoto" />
+    </fragment>
+    <fragment
+        android:id="@+id/savedFragment"
+        android:name="com.example.imageloadingwithpaging3.ui.details.SavedFragment"
+        android:label="fragment_saved"
+        tools:layout="@layout/fragment_saved" />
 </navigation>

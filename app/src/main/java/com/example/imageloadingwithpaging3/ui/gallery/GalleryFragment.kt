@@ -43,11 +43,19 @@ class GalleryFragment : Fragment(R.layout.fragment_gallery), ProductsAdapter.OnI
 
         binding.apply {
 
+
+            btnFavorite.setOnClickListener {
+                view.findNavController()
+                    .navigate(R.id.action_galleryFragment_to_savedFragment)
+
+            }
+
             imagSearch.setOnClickListener {
 
                 view.findNavController()
                     .navigate(R.id.action_galleryFragment_to_searchHistoryFragment)
                 editor.clear()
+
             }
 
 
@@ -96,12 +104,17 @@ class GalleryFragment : Fragment(R.layout.fragment_gallery), ProductsAdapter.OnI
 
 
     override fun onItemClicked(photo: UnsplashPhoto) {
-        val bundle = Bundle()
-        bundle.putString("urls", photo.urls.toString())
-        bundle.putString("user", photo.user.toString())
-        bundle.putString("description", photo.description.toString())
-        bundle.putString("id", photo.id.toString())
+        val bundle = Bundle().apply {
+
+            putString("id", photo.id.toString())
+            putString("urls_image", photo.urls.small.toString())
+            putString("user_name", photo.user.username.toString())
+            putString("description", photo.description.toString())
+        }
+
         view?.findNavController()?.navigate(R.id.action_galleryFragment_to_detailsFragment, bundle)
+
+
     }
 
 

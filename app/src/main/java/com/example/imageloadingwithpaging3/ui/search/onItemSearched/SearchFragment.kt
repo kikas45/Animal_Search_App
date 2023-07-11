@@ -114,7 +114,7 @@ class SearchFragment : Fragment(R.layout.fragment_search), ProductsAdapter.OnIte
     override fun onItemClicked(photo: UnsplashPhoto) {
         val bundle = Bundle()
         bundle.putString("urls", photo.urls.toString())
-        bundle.putString("user", photo.user.toString())
+        bundle.putString("user", photo.description.toString())
         bundle.putString("description", photo.description.toString())
         bundle.putString("id", photo.id.toString())
          view?.findNavController()?.navigate(R.id.action_searchFragment_to_detailsFragment, bundle)

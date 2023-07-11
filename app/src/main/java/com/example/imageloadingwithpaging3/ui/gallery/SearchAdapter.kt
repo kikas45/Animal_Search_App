@@ -60,7 +60,7 @@ class SearchAdapter(private val listener: OnItemClickListener) :
                     .error(R.drawable.ic_error)
                     .into(imageView)
 
-                textViewUserName.text = photo.user.username
+                textViewUserName.text = photo.description.toString()
             }
         }
     }

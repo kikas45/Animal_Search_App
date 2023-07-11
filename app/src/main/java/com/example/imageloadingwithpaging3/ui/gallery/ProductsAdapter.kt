@@ -54,13 +54,13 @@ class ProductsAdapter(private val listener: OnItemClickListener) :
         fun bind(photo: UnsplashPhoto) {
             binding.apply {
                 Glide.with(itemView)
-                    .load(photo.urls.regular)
+                    .load(photo.urls.thumb)
                     .centerCrop()
                     .transition(DrawableTransitionOptions.withCrossFade())
-                    .error(R.drawable.ic_error)
+                    .error(R.drawable.ic_launcher_background)
                     .into(imageView)
 
-                textViewUserName.text = photo.user.username
+                textViewUserName.text = photo.user.name
             }
         }
     }
