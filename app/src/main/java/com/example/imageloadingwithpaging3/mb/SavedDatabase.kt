@@ -13,27 +13,8 @@ import com.example.imageloadingwithpaging3.data.searchData.UserDao
 @TypeConverters(Converters::class)
 abstract class SavedDatabase : RoomDatabase() {
 
-    abstract fun savedDao(): SavedDao
+    abstract fun noteDao(): SavedDao
 
-    companion object {
-        @Volatile
-        private var INSTANCE: SavedDatabase? = null
 
-        fun getDatabase(context: Context): SavedDatabase {
-            val tempInstance = INSTANCE
-            if(tempInstance != null){
-                return tempInstance
-            }
-            synchronized(this){
-                val instance = Room.databaseBuilder(
-                    context.applicationContext,
-                    SavedDatabase::class.java,
-                    "saved_art"
-                ).build()
-                INSTANCE = instance
-                return instance
-            }
-        }
-    }
 
 }

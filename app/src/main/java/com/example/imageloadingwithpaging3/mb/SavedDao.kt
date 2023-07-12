@@ -9,23 +9,25 @@ import androidx.room.Query
 import androidx.room.Update
 import com.example.imageloadingwithpaging3.data.galaryData.UnsplashPhoto
 import com.example.imageloadingwithpaging3.data.searchData.User
+import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface SavedDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun addUser(user: UnsplashPhoto)
+    suspend fun insert(note: UnsplashPhoto)
 
     @Update
-    suspend fun updateUser(user: UnsplashPhoto)
+    suspend fun update(note: UnsplashPhoto)
 
     @Delete
-    suspend fun deleteUser(user: UnsplashPhoto)
+    suspend fun delete(note: UnsplashPhoto)
 
-    @Query("DELETE FROM saved_art")
-    suspend fun deleteAllUsers()
+
 
     @Query("SELECT * FROM saved_art  ORDER BY id ASC LIMIT 30")
-    fun readAllData(): LiveData<List<UnsplashPhoto>>
+    fun getAllNotes(): LiveData<List<UnsplashPhoto>>
+
+
 
 }

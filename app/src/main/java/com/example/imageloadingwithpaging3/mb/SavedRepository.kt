@@ -2,25 +2,26 @@ package com.example.imageloadingwithpaging3.mb
 
 import androidx.lifecycle.LiveData
 import com.example.imageloadingwithpaging3.data.galaryData.UnsplashPhoto
+import javax.inject.Inject
 
-class SavedRepository(private val userDao: SavedDao) {
+class SavedRepository @Inject constructor( private  val savedDatabase: SavedDatabase) {
 
-    val readAllData: LiveData<List<UnsplashPhoto>> = userDao.readAllData()
+    //  val allNotes: LiveData<List<UnsplashPhoto>> = savedDatabase.noteDao().getAllNotes()
 
-    suspend fun addUser(user: UnsplashPhoto){
-        userDao.addUser(user)
+    val allNotes = savedDatabase.noteDao().getAllNotes()
+
+        suspend fun insert(note: UnsplashPhoto) {
+            savedDatabase.noteDao().insert(note)
+        }
+
+        suspend fun update(note: UnsplashPhoto) {
+            savedDatabase.noteDao().update(note)
+        }
+
+        suspend fun delete(note: UnsplashPhoto) {
+            savedDatabase.noteDao().delete(note)
+        }
+
+
     }
 
-    suspend fun updateUser(user: UnsplashPhoto){
-        userDao.updateUser(user)
-    }
-
-    suspend fun deleteUser(user: UnsplashPhoto){
-        userDao.deleteUser(user)
-    }
-
-    suspend fun deleteAllUsers(){
-        userDao.deleteAllUsers()
-    }
-
-}

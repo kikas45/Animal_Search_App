@@ -3,46 +3,40 @@ package com.example.imageloadingwithpaging3.mb
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.asFlow
 import androidx.lifecycle.viewModelScope
 import com.example.imageloadingwithpaging3.data.galaryData.UnsplashPhoto
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class SavedViewModel(application: Application) : AndroidViewModel(application) {
 
-    val readAllData: LiveData<List<UnsplashPhoto>>
-    private val repository: SavedRepository
+@HiltViewModel
+class SavedViewModel  @Inject constructor(private val noteRepository: SavedRepository) : ViewModel() {
 
-    init {
-        val userDao = SavedDatabase.getDatabase(
-            application
-        ).savedDao()
-        repository = SavedRepository(userDao)
-        readAllData = repository.readAllData
-    }
+    val allNotes: LiveData<List<UnsplashPhoto>> = noteRepository.allNotes
 
-    fun addUser(user: UnsplashPhoto) {
-        viewModelScope.launch(Dispatchers.IO) {
-            repository.addUser(user)
+    fun insert(note: UnsplashPhoto) {
+        viewModelScope.launch {
+            noteRepository.insert(note)
         }
     }
 
-    fun updateUser(user: UnsplashPhoto) {
-        viewModelScope.launch(Dispatchers.IO) {
-            repository.updateUser(user)
+    fun update(note: UnsplashPhoto) {
+        viewModelScope.launch {
+            noteRepository.update(note)
         }
     }
 
-    fun deleteUser(user: UnsplashPhoto) {
-        viewModelScope.launch(Dispatchers.IO) {
-            repository.deleteUser(user)
+    fun delete(note: UnsplashPhoto) {
+        viewModelScope.launch {
+            noteRepository.delete(note)
         }
     }
 
-    fun deleteAllUsers() {
-        viewModelScope.launch(Dispatchers.IO) {
-            repository.deleteAllUsers()
-        }
-    }
+
 
 }

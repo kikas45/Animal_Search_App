@@ -11,7 +11,9 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.imageloadingwithpaging3.R
 import com.example.imageloadingwithpaging3.databinding.FragmentSavedBinding
 import com.example.imageloadingwithpaging3.mb.SavedViewModel
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 
 class SavedFragment : Fragment(R.layout.fragment_saved) {
 
@@ -37,7 +39,7 @@ class SavedFragment : Fragment(R.layout.fragment_saved) {
         }
 
 
-        mUserViewModel.readAllData.observe(viewLifecycleOwner, Observer {
+        mUserViewModel.allNotes.observe(viewLifecycleOwner, Observer {
             adapter.setData(it)
         })
 

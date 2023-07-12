@@ -17,6 +17,9 @@ import com.example.imageloadingwithpaging3.data.galaryData.UnsplashPhotoUrls
 import com.example.imageloadingwithpaging3.data.galaryData.UnsplashUser
 import com.example.imageloadingwithpaging3.databinding.FragmentDetailsBinding
 import com.example.imageloadingwithpaging3.mb.SavedViewModel
+import dagger.hilt.android.AndroidEntryPoint
+
+@AndroidEntryPoint
 
 class DetailsFragment : Fragment(R.layout.fragment_details) {
 
@@ -94,7 +97,7 @@ class DetailsFragment : Fragment(R.layout.fragment_details) {
 
         val user = UnsplashPhoto(  id, description, url_image, user_name, urls_small ,custom_name )
         // Add Data to Database
-        mUserViewModel.addUser(user)
+        mUserViewModel.insert(user)
 
     }
 
