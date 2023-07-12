@@ -52,7 +52,7 @@ class SearchFragment : Fragment(R.layout.fragment_search), ProductsAdapter.OnIte
 
         binding.apply {
 
-            imagSearch.setOnClickListener {
+            titleText.setOnClickListener {
                 view.findNavController()
                     .navigate(R.id.action_searchFragment_to_searchHistoryFragment)
                 editor.clear()
