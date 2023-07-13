@@ -21,7 +21,8 @@ import com.example.imageloadingwithpaging3.data.searchData.UserViewModel
 import com.example.imageloadingwithpaging3.databinding.FragmentSearchHistoryBinding
 
 
-class SearchHistoryFragment : Fragment(R.layout.fragment_search_history) {
+class SearchHistoryFragment : Fragment(R.layout.fragment_search_history),
+    ListAdapter.OnItemClickListener {
 
     private var _binding: FragmentSearchHistoryBinding? = null
     private val binding get() = _binding!!
@@ -49,7 +50,10 @@ class SearchHistoryFragment : Fragment(R.layout.fragment_search_history) {
             val bundle = Bundle()
 
 
-            val sharedDatasss = view.context.applicationContext.getSharedPreferences("PASS_DATA_TRANS_FRAGMENT", Context.MODE_PRIVATE)
+            val sharedDatasss = view.context.applicationContext.getSharedPreferences(
+                "PASS_DATA_TRANS_FRAGMENT",
+                Context.MODE_PRIVATE
+            )
             val editor = sharedDatasss.edit()
 
             editText.setOnEditorActionListener(OnEditorActionListener { v, actionId, event ->
@@ -60,12 +64,13 @@ class SearchHistoryFragment : Fragment(R.layout.fragment_search_history) {
                     if (!editUrl.isEmpty()) {
                         insertDataToDatabase(editUrl)
                         bundle.putString("search", editUrl)
-                        editor.putString("search" , "SavedData")
+                        editor.putString("search", "SavedData")
                         editor.apply()
-                        view.findNavController().navigate(R.id.action_searchHistoryFragment_to_searchFragment, bundle)
+                        view.findNavController()
+                            .navigate(R.id.action_searchHistoryFragment_to_searchFragment, bundle)
 
 
-                    }else{
+                    } else {
                         Toast.makeText(context, "Input text for search", Toast.LENGTH_SHORT).show()
                     }
                     return@OnEditorActionListener true
@@ -95,7 +100,7 @@ class SearchHistoryFragment : Fragment(R.layout.fragment_search_history) {
 
     }
 
-    private fun insertDataToDatabase(name:String) {
+    private fun insertDataToDatabase(name: String) {
 
         val user = User(name)
         // Add Data to Database
@@ -126,10 +131,9 @@ class SearchHistoryFragment : Fragment(R.layout.fragment_search_history) {
     }
 
 
-
-    private  fun  DisplayMySearch(){
+    private fun DisplayMySearch() {
         // Recyclerview
-        val adapter = ListAdapter()
+        val adapter = ListAdapter(this)
 
         binding.apply {
             recyclerview.adapter = adapter
@@ -146,7 +150,6 @@ class SearchHistoryFragment : Fragment(R.layout.fragment_search_history) {
     }
 
 
-
     override fun onResume() {
         super.onResume()
 
@@ -156,6 +159,25 @@ class SearchHistoryFragment : Fragment(R.layout.fragment_search_history) {
             }
         }
         requireActivity().onBackPressedDispatcher.addCallback(requireActivity(), callback)
+
+    }
+
+    override fun onItemClicked(_user: User) {
+        val name = _user.firstName.toString()
+
+        /// val user = User(name)
+        //  mUserViewModel.deleteUser(user)
+
+        val sharedDatasss = view?.context?.applicationContext?.getSharedPreferences("PASS_DATA_TRANS_FRAGMENT", Context.MODE_PRIVATE)
+        val editor = sharedDatasss?.edit()
+
+        val bundle = Bundle().apply { putString("search", name) }
+
+        editor?.putString("search", "SavedData")
+        editor?.apply()
+
+        view?.findNavController()?.navigate(R.id.action_searchHistoryFragment_to_searchFragment, bundle)
+        hideKeyBaord()
 
     }
 

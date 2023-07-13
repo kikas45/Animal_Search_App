@@ -8,6 +8,9 @@
     <ImageView
         android:id="@+id/image_view"
         android:layout_width="match_parent"
+        android:foreground="?android:selectableItemBackground"
+        android:clickable="true"
+        android:focusable="true"
         android:layout_height="match_parent" />
 
     <View

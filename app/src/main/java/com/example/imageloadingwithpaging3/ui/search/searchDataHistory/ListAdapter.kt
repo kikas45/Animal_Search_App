@@ -3,13 +3,12 @@ package com.example.imageloadingwithpaging3.ui.search.searchDataHistory
 import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.example.imageloadingwithpaging3.R
 import com.example.imageloadingwithpaging3.data.searchData.User
 import com.example.imageloadingwithpaging3.databinding.CustomRowBinding
 
-class ListAdapter: RecyclerView.Adapter<ListAdapter.MyViewHolder>() {
+class ListAdapter(private val listener: OnItemClickListener): RecyclerView.Adapter<ListAdapter.MyViewHolder>() {
 
 
     private var userList = emptyList<User>()
@@ -21,6 +20,11 @@ class ListAdapter: RecyclerView.Adapter<ListAdapter.MyViewHolder>() {
         return MyViewHolder(binding)
     }
 
+    interface OnItemClickListener{
+        fun onItemClicked(photo: User)
+    }
+
+
     inner class MyViewHolder(private val binding: CustomRowBinding) :
         RecyclerView.ViewHolder(binding.root){
             val firstNameCO = binding.firstNameTxt
@@ -29,13 +33,15 @@ class ListAdapter: RecyclerView.Adapter<ListAdapter.MyViewHolder>() {
             binding.root.setOnClickListener {
                 val position = bindingAdapterPosition
                 if (position != RecyclerView.NO_POSITION){
-
-                    Toast.makeText(itemView.context, "Yes ", Toast.LENGTH_SHORT).show()
-                    
+                    val item = userList.get(position)
+                    if (item != null){
+                        listener.onItemClicked(item)
                     }
                 }
 
             }
+        }
+
 
     }
 

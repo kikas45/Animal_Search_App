@@ -34,6 +34,7 @@ class GalleryFragment : Fragment(R.layout.fragment_gallery), ProductsAdapter.OnI
 
         val adapter = ProductsAdapter(this)
 
+
         val sharedDass = view.context.applicationContext.getSharedPreferences(
             "PASS_DATA_TRANS_FRAGMENT",
             Context.MODE_PRIVATE
@@ -76,6 +77,7 @@ class GalleryFragment : Fragment(R.layout.fragment_gallery), ProductsAdapter.OnI
 
         viewModel.photos.observe(viewLifecycleOwner) {
             adapter.submitData(viewLifecycleOwner.lifecycle, it)
+
         }
 
         adapter.addLoadStateListener { loadState ->
