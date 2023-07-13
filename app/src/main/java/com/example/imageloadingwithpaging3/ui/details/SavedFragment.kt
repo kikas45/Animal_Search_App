@@ -17,7 +17,7 @@ import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 
-class SavedFragment : Fragment(R.layout.fragment_saved) , ProductsAdapter.OnItemClickListenerMe {
+class SavedFragment : Fragment(R.layout.fragment_saved) , SavedDetailAdapter.OnItemClickListenerDetails {
 
     private val mUserViewModel by viewModels<SavedViewModel>()
 
@@ -29,7 +29,7 @@ class SavedFragment : Fragment(R.layout.fragment_saved) , ProductsAdapter.OnItem
 
         _binding = FragmentSavedBinding.bind(view)
 
-        val adapter = DetailAdapter()
+        val adapter = SavedDetailAdapter(this)
         binding.apply {
             recyclerview.adapter = adapter
             recyclerview.layoutManager = LinearLayoutManager(requireContext())
@@ -63,16 +63,16 @@ class SavedFragment : Fragment(R.layout.fragment_saved) , ProductsAdapter.OnItem
         requireActivity().onBackPressedDispatcher.addCallback(requireActivity(), callback)
     }
 
-    override fun onItemClickedMe(photo: UnsplashPhoto) {
+    override fun onclickDetailsItem(photo: UnsplashPhoto) {
         val bundle = Bundle().apply {
 
             putString("id", photo.id.toString())
-            putString("urls_image", photo.urls.small.toString())
-            putString("user_name", photo.user.username.toString())
+            putString("urls_image", photo.custom_image.toString())
+            putString("user_name", photo.custom_name.toString())
             putString("description", photo.description.toString())
         }
 
-        view?.findNavController()?.navigate(R.id.action_galleryFragment_to_detailsFragment, bundle)
+        view?.findNavController()?.navigate(R.id.action_savedFragment_to_detailsFragment, bundle)
 
     }
 
