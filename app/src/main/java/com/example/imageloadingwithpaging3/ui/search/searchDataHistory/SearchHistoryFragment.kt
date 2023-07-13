@@ -8,6 +8,7 @@ import android.text.TextWatcher
 import android.view.View
 import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
+import android.widget.PopupMenu
 import android.widget.TextView.OnEditorActionListener
 import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
@@ -39,6 +40,10 @@ class SearchHistoryFragment : Fragment(R.layout.fragment_search_history),
 
         DisplayMySearch()
 
+        binding.btnDeleteall.setOnClickListener {
+            deleteAllUsers()
+
+        }
 
         binding.apply {
 
@@ -100,6 +105,7 @@ class SearchHistoryFragment : Fragment(R.layout.fragment_search_history),
 
 
     }
+
 
     private fun insertDataToDatabase(name: String) {
 
@@ -216,6 +222,19 @@ class SearchHistoryFragment : Fragment(R.layout.fragment_search_history),
         builder.create().show()
     }
 
-
+    private fun deleteAllUsers() {
+        val builder = AlertDialog.Builder(requireContext())
+        builder.setPositiveButton("Yes") { _, _ ->
+            mUserViewModel.deleteAllUsers()
+            Toast.makeText(
+                requireContext(),
+                "Successfully removed everything",
+                Toast.LENGTH_SHORT).show()
+        }
+        builder.setNegativeButton("No") { _, _ -> }
+        builder.setTitle("Delete everything?")
+        builder.setMessage("Are you sure you want to delete everything?")
+        builder.create().show()
+    }
 
 }
