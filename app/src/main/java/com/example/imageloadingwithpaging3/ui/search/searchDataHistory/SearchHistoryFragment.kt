@@ -1,5 +1,6 @@
 package com.example.imageloadingwithpaging3.ui.search.searchDataHistory
 
+import android.app.AlertDialog
 import android.content.Context
 import android.os.Bundle
 import android.text.Editable
@@ -22,7 +23,7 @@ import com.example.imageloadingwithpaging3.databinding.FragmentSearchHistoryBind
 
 
 class SearchHistoryFragment : Fragment(R.layout.fragment_search_history),
-    ListAdapter.OnItemClickListener {
+    ListAdapter.OnItemClickListener, ListAdapter.OnItemLongClickListener {
 
     private var _binding: FragmentSearchHistoryBinding? = null
     private val binding get() = _binding!!
@@ -133,7 +134,8 @@ class SearchHistoryFragment : Fragment(R.layout.fragment_search_history),
 
     private fun DisplayMySearch() {
         // Recyclerview
-        val adapter = ListAdapter(this)
+        val adapter = ListAdapter(this, this)
+
 
         binding.apply {
             recyclerview.adapter = adapter
@@ -168,7 +170,10 @@ class SearchHistoryFragment : Fragment(R.layout.fragment_search_history),
         /// val user = User(name)
         //  mUserViewModel.deleteUser(user)
 
-        val sharedDatasss = view?.context?.applicationContext?.getSharedPreferences("PASS_DATA_TRANS_FRAGMENT", Context.MODE_PRIVATE)
+        val sharedDatasss = view?.context?.applicationContext?.getSharedPreferences(
+            "PASS_DATA_TRANS_FRAGMENT",
+            Context.MODE_PRIVATE
+        )
         val editor = sharedDatasss?.edit()
 
         val bundle = Bundle().apply { putString("search", name) }
@@ -176,10 +181,41 @@ class SearchHistoryFragment : Fragment(R.layout.fragment_search_history),
         editor?.putString("search", "SavedData")
         editor?.apply()
 
-        view?.findNavController()?.navigate(R.id.action_searchHistoryFragment_to_searchFragment, bundle)
+        view?.findNavController()
+            ?.navigate(R.id.action_searchHistoryFragment_to_searchFragment, bundle)
         hideKeyBaord()
 
     }
+
+    override fun onItemLongClicked(photo: User) {
+
+        val name = photo.firstName.toString()
+        val user = User(name)
+
+        deleteUser(user)
+        hideKeyBaord()
+
+
+
+    }
+
+
+    private fun deleteUser(photo: User) {
+        val builder = AlertDialog.Builder(requireContext())
+        builder.setPositiveButton("Yes") { _, _ ->
+            mUserViewModel.deleteUser(photo)
+            Toast.makeText(
+                requireContext(),
+                "Successfully removed: ${photo.firstName.toString()}",
+                Toast.LENGTH_SHORT).show()
+
+        }
+        builder.setNegativeButton("No") { _, _ -> }
+        builder.setTitle("Delete ${photo.firstName.toString()}?")
+        builder.setMessage("Are you sure you want to delete ${photo.firstName.toString()}?")
+        builder.create().show()
+    }
+
 
 
 }

@@ -8,7 +8,7 @@ import com.example.imageloadingwithpaging3.R
 import com.example.imageloadingwithpaging3.data.searchData.User
 import com.example.imageloadingwithpaging3.databinding.CustomRowBinding
 
-class ListAdapter(private val listener: OnItemClickListener): RecyclerView.Adapter<ListAdapter.MyViewHolder>() {
+class ListAdapter(private val listener: OnItemClickListener, private val onLongListener: OnItemLongClickListener  ): RecyclerView.Adapter<ListAdapter.MyViewHolder>() {
 
 
     private var userList = emptyList<User>()
@@ -24,6 +24,9 @@ class ListAdapter(private val listener: OnItemClickListener): RecyclerView.Adapt
         fun onItemClicked(photo: User)
     }
 
+    interface OnItemLongClickListener {
+        fun onItemLongClicked(photo: User)
+    }
 
     inner class MyViewHolder(private val binding: CustomRowBinding) :
         RecyclerView.ViewHolder(binding.root){
@@ -32,15 +35,28 @@ class ListAdapter(private val listener: OnItemClickListener): RecyclerView.Adapt
         init {
             binding.root.setOnClickListener {
                 val position = bindingAdapterPosition
-                if (position != RecyclerView.NO_POSITION){
-                    val item = userList.get(position)
-                    if (item != null){
+                if (position != RecyclerView.NO_POSITION) {
+                    val item = userList[position]
+                    if (item != null) {
                         listener.onItemClicked(item)
                     }
                 }
+            }
 
+            binding.root.setOnLongClickListener {
+                val position = bindingAdapterPosition
+                if (position != RecyclerView.NO_POSITION) {
+                    val item = userList[position]
+                    if (item != null) {
+                        onLongListener.onItemLongClicked(item)
+                        return@setOnLongClickListener true
+                    }
+                }
+                return@setOnLongClickListener false
             }
         }
+
+
 
 
     }
