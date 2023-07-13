@@ -9,13 +9,15 @@ import androidx.lifecycle.Observer
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.imageloadingwithpaging3.R
+import com.example.imageloadingwithpaging3.data.galaryData.UnsplashPhoto
 import com.example.imageloadingwithpaging3.databinding.FragmentSavedBinding
 import com.example.imageloadingwithpaging3.mb.SavedViewModel
+import com.example.imageloadingwithpaging3.ui.gallery.ProductsAdapter
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 
-class SavedFragment : Fragment(R.layout.fragment_saved) {
+class SavedFragment : Fragment(R.layout.fragment_saved) , ProductsAdapter.OnItemClickListenerMe {
 
     private val mUserViewModel by viewModels<SavedViewModel>()
 
@@ -60,5 +62,19 @@ class SavedFragment : Fragment(R.layout.fragment_saved) {
         }
         requireActivity().onBackPressedDispatcher.addCallback(requireActivity(), callback)
     }
+
+    override fun onItemClickedMe(photo: UnsplashPhoto) {
+        val bundle = Bundle().apply {
+
+            putString("id", photo.id.toString())
+            putString("urls_image", photo.urls.small.toString())
+            putString("user_name", photo.user.username.toString())
+            putString("description", photo.description.toString())
+        }
+
+        view?.findNavController()?.navigate(R.id.action_galleryFragment_to_detailsFragment, bundle)
+
+    }
+
 }
 

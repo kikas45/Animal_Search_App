@@ -4,6 +4,7 @@ import android.content.Context
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.View
+import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.core.view.isVisible
 
@@ -18,7 +19,7 @@ import dagger.hilt.android.AndroidEntryPoint
 
 
 @AndroidEntryPoint
-class GalleryFragment : Fragment(R.layout.fragment_gallery), ProductsAdapter.OnItemClickListener {
+class GalleryFragment : Fragment(R.layout.fragment_gallery), ProductsAdapter.OnItemClickListenerMe {
 
 
     private val viewModel by viewModels<GalleryViewModel>()
@@ -105,7 +106,7 @@ class GalleryFragment : Fragment(R.layout.fragment_gallery), ProductsAdapter.OnI
     }
 
 
-    override fun onItemClicked(photo: UnsplashPhoto) {
+    override fun onItemClickedMe(photo: UnsplashPhoto) {
         val bundle = Bundle().apply {
 
             putString("id", photo.id.toString())
@@ -115,7 +116,6 @@ class GalleryFragment : Fragment(R.layout.fragment_gallery), ProductsAdapter.OnI
         }
 
         view?.findNavController()?.navigate(R.id.action_galleryFragment_to_detailsFragment, bundle)
-
 
     }
 

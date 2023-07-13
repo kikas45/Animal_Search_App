@@ -11,7 +11,7 @@ import com.example.imageloadingwithpaging3.R
 import com.example.imageloadingwithpaging3.data.galaryData.UnsplashPhoto
 import com.example.imageloadingwithpaging3.databinding.ItemUnsplashPhotoBinding
 
-class ProductsAdapter(private val listener: OnItemClickListener) :
+class ProductsAdapter(private val listener: OnItemClickListenerMe) :
     PagingDataAdapter<UnsplashPhoto, ProductsAdapter.PhotoViewHolder>(PHOTO_COMPARATOR) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PhotoViewHolder {
@@ -29,8 +29,8 @@ class ProductsAdapter(private val listener: OnItemClickListener) :
         }
     }
 
-    interface OnItemClickListener{
-        fun onItemClicked(photo: UnsplashPhoto)
+    interface OnItemClickListenerMe{
+        fun onItemClickedMe(photo: UnsplashPhoto)
     }
 
     inner class PhotoViewHolder(private val binding: ItemUnsplashPhotoBinding) :
@@ -42,7 +42,7 @@ class ProductsAdapter(private val listener: OnItemClickListener) :
                 if (position != RecyclerView.NO_POSITION){
                     val item = getItem(position)
                     if (item != null){
-                        listener.onItemClicked(item)
+                        listener.onItemClickedMe(item)
                     }
                 }
 

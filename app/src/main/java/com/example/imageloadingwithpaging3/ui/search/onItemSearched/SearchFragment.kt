@@ -21,7 +21,7 @@ import com.example.imageloadingwithpaging3.ui.gallery.UnsplashPhotoLoadStateAdap
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class SearchFragment : Fragment(R.layout.fragment_search), ProductsAdapter.OnItemClickListener {
+class SearchFragment : Fragment(R.layout.fragment_search), ProductsAdapter.OnItemClickListenerMe {
 
     private var _binding: FragmentSearchBinding? = null
     private val binding get() = _binding!!
@@ -111,7 +111,7 @@ class SearchFragment : Fragment(R.layout.fragment_search), ProductsAdapter.OnIte
     }
 
 
-    override fun onItemClicked(photo: UnsplashPhoto) {
+    override fun onItemClickedMe(photo: UnsplashPhoto) {
         val bundle = Bundle().apply {
 
             putString("id", photo.id.toString())
